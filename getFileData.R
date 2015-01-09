@@ -60,5 +60,6 @@ cleanFileData <- function(){
   names(gAPDF)<<-c("Global_Active_Power","Global_Reactive_Power","Voltage","Global_Intensity")
   names(meterDF)<<-c("Sub_metering_1","Sub_metering_2","Sub_metering_3")
   
+  #removes the temporary data frames
   rm(list="gAPTable","dayTime",envir=globalenv())
 }

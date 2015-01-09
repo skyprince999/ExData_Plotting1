@@ -27,7 +27,7 @@ getFileData<- function(){
 ##
 ## Reads the data from the file and cleans it 
 ## (numeric coercion & date vectors). The data tables are stored in the
-## global env, so they can be read by any of the other scripts
+## global env, so they can be read by any of the other plotting scripts 
 ########################################################################
 
 

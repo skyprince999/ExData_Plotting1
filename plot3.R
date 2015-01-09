@@ -10,7 +10,6 @@
 ## getFileData() and download and unzip the file in the data folder
 ## This function is defined in getFileData.R
 ## kindly read "Note for Peer Evaluators.md" before running this script
-##
 
 if(!file.exists("./data/household_power_consumption.txt")){
   getFileData()

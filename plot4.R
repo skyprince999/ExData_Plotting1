@@ -22,7 +22,7 @@ if(!file.exists("./data/household_power_consumption.txt")){
 ## This checks if the data has been read and cleaned into a data table by some
 ## other script. If the data table is not present in the global env then the 
 ## function cleanFileData() is called. This function is defined in getFileData.R
-##
+
 
 tryCatch( {
   temp<-is.character(gAPDF$Global_Active_Power[1])

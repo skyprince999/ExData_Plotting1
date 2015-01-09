@@ -2,34 +2,38 @@
 ##
 ## This script plots the variable Global_active_power as a line chart 
 ## for values between the following dates : 2007-02-01 to 2007-02-02
-## and stores it in plot2.png. The plot files are stored in the following
-## figure folder
+## and stores it in plot2.png. The plot files are stored in the figure folder
+## 
 ## data file "household_power_consumption.txt" is stored inside the data folder
 ##
+## if the file is not present in the folder, the script will call the routine 
+## getFileData() and download and unzip the file in the data folder
+## This function is defined in getFileData.R
+## kindly read "Note for Peer Evaluators.md" before running this script
+##
 
-library(data.table)
+if(!file.exists("./data/household_power_consumption.txt")){
+  getFileData()
+  
+}
 
-fileName="./data/household_power_consumption.txt"
+## This checks if the data has been read and cleaned into a data table by some
+## other script. If the data table is not present in the global env then the 
+## function cleanFileData() is called. This function is defined in getFileData.R
+##
 
-# count the number of observations in the window between: 2007-02-01 and 2007-02-02
-# number of obs = 2 days * 24 hrs * 60 min  = 2880
-nobs = 2*24*60
+tryCatch( {
+  temp<-is.character(gAPDF$Global_Active_Power[1])
+},
+error=function(e){
+  cleanFileData()}
+)
 
-# read only relevant observations from the file 
-gAPTable<-suppressWarnings(fread(fileName,sep=';',na.strings=';?;',header=TRUE,select=1:3,skip="31/1/2007;23:59:00;",nrows=nobs))
-
-# coerce to numeric vector
-setnames(gAPTable,c("Date","Time","Global_Active_Power"))
-gAPVector<-as.numeric(gAPTable$Global_Active_Power)
-dayVector<-(paste(gAPTable$Date,gAPTable$Time))
-
+message("Plotting graph plot2.png....")
 # make a call to device driver
-#png(filename="./figure/plot2.png",width=480,height=480)
+png(filename="./figure/plot2.png",width=480,height=480,bg="transparent")
 # plot global_active_power as a line chart
-plot(gAPVector~dayVector,main="",ylab="Global Active Power(kilowatts)",type='l')
+plot(gAPDF$Global_Active_Power~dayVector,main="",xlab="",ylab="Global Active Power(kilowatts)",type='l')
 
-#dev.off()
-
-
-
+dev.off()
 
